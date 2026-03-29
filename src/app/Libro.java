@@ -11,9 +11,9 @@ public class Libro implements Comparable<Libro>{
     private int estado;
 
     //Constantes de Estado
-    public final int LIBRO_LEIDO = 2;
-    public final int LIBRO_EMPEZADO = 1;
-    public final int LIBRO_POR_LEER = 0;
+    public static final int LIBRO_LEIDO = 2;
+    public static final int LIBRO_EMPEZADO = 1;
+    public static final int LIBRO_POR_LEER = 0;
 
     /**
      * Constructos para aquellos libros que forman parte de una coleccion

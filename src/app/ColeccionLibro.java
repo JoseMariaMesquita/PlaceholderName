@@ -1,5 +1,6 @@
 package app;
 
+import exceptions.ArrayTagLlenoException;
 import exceptions.LibroNoExistenteException;
 import exceptions.LibroYaEnColeccionException;
 
@@ -20,14 +21,14 @@ public class ColeccionLibro implements Comparable<ColeccionLibro> {
 
     //Constantes de estado
     //Publicacion
-    public final int COMPLETADO = 0;
-    public final int EN_EMISION = 1;
-    public final int HIATUS = 2;
-    public final int CANCELADO = 3;
+    public static final int COMPLETADO = 0;
+    public static final int EN_EMISION = 1;
+    public static final int HIATUS = 2;
+    public static final int CANCELADO = 3;
 
     //Coleccion
-    public final int CONTINUA = 1;
-    public final int ABANDONADO = 2;
+    public static final int CONTINUA = 1;
+    public static final int ABANDONADO = 2;
 
 
     /**
@@ -111,8 +112,20 @@ public class ColeccionLibro implements Comparable<ColeccionLibro> {
         return tags;
     }
 
-    public void setTags(String[] tags) {
-        this.tags = tags;
+    /**
+     * Añade una tag nueva a las tags, si el array de tags esta lleno lanza una excepcion
+     * @param tag - nombre de la tag que se quiere aññaddir
+     * @return - true si ha añadido la tag
+     * @throws ArrayTagLlenoException - Excepcion que se lanza si el arra de tags con un limite de 3, estálleno
+     */
+    public boolean addTags(String tag) throws ArrayTagLlenoException {
+        for (int i = 0; i < this.getTags().length; i++) {
+            if(tags[i].isEmpty()){
+                tags[i] = tag;
+                return true;
+            }
+        }
+        throw new ArrayTagLlenoException();
     }
 
     public TreeSet<Libro> getColeccionVolumens() {
@@ -178,6 +191,19 @@ public class ColeccionLibro implements Comparable<ColeccionLibro> {
         for (Libro l : coleccionVolumens) {
             if (l.getVolumen() == volumen) {
                 l.setCoverVolumen(coverImage);
+            }
+        }
+    }
+
+    /**
+     * Asigna/Cambia el estado de un libro
+     * @param volumen
+     * @param estado
+     */
+    public void cambiarEstadoLibro (int volumen, int estado){
+        for (Libro l: this.coleccionVolumens){
+            if(l.getVolumen() == volumen){
+                l.setEstado(estado);
             }
         }
     }

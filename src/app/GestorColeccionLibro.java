@@ -1,5 +1,6 @@
 package app;
 
+import exceptions.ArrayTagLlenoException;
 import exceptions.ColeccionNoExistenteException;
 import exceptions.ColeccionYaExistenteException;
 import exceptions.EstadoInexistenteException;
@@ -37,6 +38,7 @@ public class GestorColeccionLibro {
         }
     }
 
+    //ToDo Mejorar esto para que se haga con numero en vez de con string, no tiene sentdo la forma en la que lo estoy haciendo
     /**
      * Cambia el estado de la coleccion
      * @param titulo - nombre de lacoleccion a editar
@@ -51,15 +53,15 @@ public class GestorColeccionLibro {
                 coleccionEnGestor = true;
                 switch (estado){
                     case 0->{
-                        cl.setEstadoColeccion(estados[estado]);
+                        cl.setEstadoColeccion(estados[ColeccionLibro.COMPLETADO]);
                     }
 
                     case 1 ->{
-                        cl.setEstadoColeccion(estados[estado]);
+                        cl.setEstadoColeccion(estados[ColeccionLibro.CONTINUA]);
                     }
 
                     case 2 ->{
-                        cl.setEstadoColeccion(estados[estado]);
+                        cl.setEstadoColeccion(estados[ColeccionLibro.ABANDONADO]);
                     }
 
                     default -> {
@@ -88,19 +90,19 @@ public class GestorColeccionLibro {
                 coleccionEnGestor = true;
                 switch (estado){
                     case 0->{
-                        cl.setEstadoColeccion(estados[estado]);
+                        cl.setEstadoColeccion(estados[ColeccionLibro.COMPLETADO]);
                     }
 
                     case 1 ->{
-                        cl.setEstadoColeccion(estados[estado]);
+                        cl.setEstadoColeccion(estados[ColeccionLibro.EN_EMISION]);
                     }
 
                     case 2 ->{
-                        cl.setEstadoColeccion(estados[estado]);
+                        cl.setEstadoColeccion(estados[ColeccionLibro.HIATUS]);
                     }
 
                     case 3 ->{
-                        cl.setEstadoColeccion(estados[estado]);
+                        cl.setEstadoColeccion(estados[ColeccionLibro.CANCELADO]);
                     }
 
                     default -> {
@@ -115,8 +117,25 @@ public class GestorColeccionLibro {
         }
     }
 
-    private void asignarTags(String titulo, String tags) throws ColeccionNoExistenteException{
+    /**
+     * Asigna tag a la coleccion
+     * @param titulo - nombre de la coleccion a la que se le quiere añadir una tag
+     * @param tags - nombre de la tag que se quiere asignar
+     * @throws ColeccionNoExistenteException - Excepcion que se lanza cuando no se encuentra la coleccion
+     * @throws ArrayTagLlenoException - Excepcion que se lanza cuando el array de tags esta lleno es decir se  llega al limite de tags
+     */
+    private void asignarTags(String titulo, String tags) throws ColeccionNoExistenteException, ArrayTagLlenoException{
+        boolean coleccionEnGestor = false;
+        for (ColeccionLibro cl: gestorColecciones){
+            if(cl.getTitulo().toLowerCase().strip().equals(titulo)){
+                coleccionEnGestor = true;
+                cl.addTags(tags);
+            }
+        }
 
+        if(!coleccionEnGestor){
+            throw new ColeccionNoExistenteException();
+        }
     }
 
 
