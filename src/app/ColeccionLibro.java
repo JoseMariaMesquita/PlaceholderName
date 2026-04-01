@@ -30,6 +30,8 @@ public class ColeccionLibro implements Comparable<ColeccionLibro> {
     public static final int CONTINUA = 1;
     public static final int ABANDONADO = 2;
 
+    public ColeccionLibro() {
+    }
 
     /**
      * Crea una instancia de ColeccionLibro

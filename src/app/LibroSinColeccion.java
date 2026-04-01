@@ -1,9 +1,12 @@
 package app;
 
+import java.awt.*;
+
 public class LibroSinColeccion extends Libro{
     private String titulo;
     private String autor;
     private String editorial;
+    private Image imagenLibro;
 
     /**
      * Crea una instancia del objeto LibroSinColeccion
@@ -14,8 +17,8 @@ public class LibroSinColeccion extends Libro{
      * @param autor - nombre del escritor ddel libro
      * @param editorial - nombre de la editorialque publica el libro
      */
-    public LibroSinColeccion(int paginas, int capitulos, int estado, String titulo, String autor, String editorial) {
-        super(paginas, capitulos, estado);
+    public LibroSinColeccion(Image imagenLibro,int paginas, int capitulos, int estado, String titulo, String autor, String editorial) {
+        super(imagenLibro,paginas, capitulos, estado);
         this.titulo = titulo;
         this.autor = autor;
         this.editorial = editorial;
